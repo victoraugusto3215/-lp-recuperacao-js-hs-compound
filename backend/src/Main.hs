@@ -7,6 +7,7 @@ import Web.Scotty
 import Data.Aeson (FromJSON, ToJSON, object, (.=))
 import GHC.Generics
 import Network.Wai.Middleware.Cors
+import Network.HTTP.Types.Status (status400, status404)
 import Control.Monad.IO.Class (liftIO)
 import System.Environment (lookupEnv)
 import Text.Read (readMaybe)
