@@ -4,6 +4,31 @@
 
 Sistema completo de cálculo de juros compostos com frontend em JavaScript e backend em Haskell.
 
+---
+
+## 👤 Autor
+
+**Nome Completo**: VICTOR AUGUSTO DIAS MENDES DO VALLE
+
+**Turma**: 42B7
+
+**Disciplina**: Linguagem de Programação
+
+**Atividade**: Recuperação - Cálculo de Juros Compostos
+
+**Data de Entrega**: 16/11/2025
+
+---
+
+## 📝 Links de Produção
+
+- **Frontend**: https://compound-calculator-five-sigma.vercel.app/
+- **Backend**: https://compound-api-5i9n.onrender.com
+- **Repositório**: https://github.com/victoraugusto3215/-lp-recuperacao-js-hs-compound
+- **Tag/Release**: v1.0-RECUP-LP-2025
+
+---
+
 ## 📋 Descrição
 
 Esta aplicação calcula o montante final de um investimento usando a fórmula de juros compostos:
@@ -26,28 +51,31 @@ Onde:
 - **JSON**: Aeson (serialização/deserialização)
 - **CORS**: wai-cors (permitir requisições do frontend)
 - **Build**: Stack
+- **Deploy**: Render (Docker)
 
 ### Frontend (JavaScript)
 - HTML5, CSS3 e JavaScript puro
 - Comunicação via Fetch API
 - Formatação de moeda em BRL (pt-BR)
 - Validação de inputs no cliente
+- Deploy: Vercel
 
 ### Estrutura do Projeto
 ```
 .
 ├── backend/
-│   ├── Main.hs              # Código principal da API
+│   ├── src/
+│   │   └── Main.hs          # Código principal da API
 │   ├── package.yaml         # Dependências Haskell
-│   ├── stack.yaml          # Configuração Stack
-│   └── Dockerfile          # Container Docker
+│   ├── stack.yaml           # Configuração Stack
+│   └── Dockerfile           # Container Docker
 ├── frontend/
-│   ├── index.html          # Interface do usuário
-│   └── app.js              # Lógica do cliente
-├── README.md               # Esta documentação
-├── RECUP_LP_2025.md        # Identificação do aluno
-├── LICENSE                 # Licença MIT
-└── .gitignore             # Arquivos ignorados
+│   ├── index.html           # Interface do usuário
+│   └── app.js               # Lógica do cliente
+├── README.md                # Esta documentação
+├── RECUP_LP_2025.md         # Identificação do aluno
+├── LICENSE                  # Licença MIT
+└── .gitignore               # Arquivos ignorados
 ```
 
 ## 🔌 API Endpoints
@@ -69,8 +97,8 @@ Calcula o montante de juros compostos.
 **Response (Sucesso - 200):**
 ```json
 {
-  "amount": 1816.70,
-  "interest": 816.70
+  "amount": 1816.6967,
+  "interest": 816.6967
 }
 ```
 
@@ -97,12 +125,12 @@ Health check do serviço.
 
 ### Pré-requisitos
 - **Haskell Stack** (>= 2.9.1)
-- **Node.js** (opcional, para servidor local do frontend)
-- **Docker** (opcional, para containerização)
+- **GHC** 9.6.3
+- **Docker** (para deploy)
 
 ### Backend
 
-#### Opção 1: Com Stack (Desenvolvimento)
+#### Desenvolvimento Local
 
 ```bash
 cd backend
@@ -118,7 +146,7 @@ stack exec compound-interest-api-exe
 PORT=3000 stack exec compound-interest-api-exe
 ```
 
-#### Opção 2: Com Docker
+#### Com Docker
 
 ```bash
 cd backend
@@ -134,10 +162,10 @@ docker run -p 8080:8080 compound-api
 
 ```bash
 # Health check
-curl http://localhost:8080/
+curl https://compound-api-5i9n.onrender.com/
 
 # Calcular juros
-curl -X POST http://localhost:8080/api/compound \
+curl -X POST https://compound-api-5i9n.onrender.com/api/compound \
   -H "Content-Type: application/json" \
   -d '{
     "principal": 1000,
@@ -149,7 +177,7 @@ curl -X POST http://localhost:8080/api/compound \
 
 ### Frontend
 
-#### Opção 1: Servidor Local Simples
+#### Desenvolvimento Local
 
 ```bash
 cd frontend
@@ -157,65 +185,36 @@ cd frontend
 # Python 3
 python -m http.server 3000
 
-# Python 2
-python -m SimpleHTTPServer 3000
-
-# Node.js (com http-server)
-npx http-server -p 3000
+# Ou abrir diretamente o index.html no navegador
 ```
 
-#### Opção 2: Abrir Diretamente
+#### Configuração da API
 
-Abra o arquivo `frontend/index.html` no navegador.
-
-**IMPORTANTE**: Atualize a variável `API_URL` em `app.js` com a URL do seu backend:
+O arquivo `app.js` já está configurado para produção:
 
 ```javascript
-const API_URL = 'https://seu-backend.onrender.com/api/compound';
+const API_URL = 'https://compound-api-5i9n.onrender.com/api/compound';
 ```
 
 ## 🌐 Deploy
 
-### Backend (Render / Railway / Fly.io)
+### Backend (Render)
 
-#### Render
-1. Conecte seu repositório GitHub
-2. Crie novo **Web Service**
-3. Configure:
-   - Build Command: `stack build`
-   - Start Command: `stack exec compound-interest-api-exe`
-   - Ou use Dockerfile
-4. Adicione variável de ambiente `PORT` (auto-configurada)
+1. Conectar repositório GitHub ao Render
+2. Criar Web Service com configurações:
+   - **Name**: compound-api
+   - **Root Directory**: backend
+   - **Runtime**: Docker
+   - **Instance Type**: Free
+3. Deploy automático via Dockerfile
 
-#### Railway
-1. Conecte repositório
-2. Configure Dockerfile
+### Frontend (Vercel)
+
+1. Importar repositório no Vercel
+2. Configurar:
+   - **Root Directory**: frontend
+   - **Framework Preset**: Other
 3. Deploy automático
-
-#### Fly.io
-```bash
-fly launch
-fly deploy
-```
-
-### Frontend (Vercel / Netlify)
-
-#### Vercel
-```bash
-cd frontend
-vercel
-```
-
-Ou via interface web:
-1. Importe repositório
-2. Configure root directory: `frontend`
-3. Deploy
-
-#### Netlify
-1. Drag & drop da pasta `frontend`
-2. Ou conecte repositório GitHub
-
-**IMPORTANTE**: Após deploy do backend, atualize `API_URL` no `app.js`!
 
 ## ✅ Validações Implementadas
 
@@ -225,33 +224,38 @@ Ou via interface web:
 - ✅ TimesPerYear ≥ 1
 - ✅ Years > 0
 - ✅ Retorna HTTP 400 para inputs inválidos
-- ✅ Mensagens de erro descritivas
+- ✅ Mensagens de erro descritivas em inglês
 
 ### Frontend (JavaScript)
-- ✅ Validação antes de enviar
+- ✅ Validação antes de enviar requisição
 - ✅ Tratamento de erros de rede
 - ✅ Feedback visual (loading, erro, sucesso)
-- ✅ Formatação monetária BRL
-- ✅ Interface responsiva
+- ✅ Formatação monetária BRL (pt-BR)
+- ✅ Interface responsiva e moderna
+- ✅ Mensagens de erro em português
 
-## 📦 Versões
+## 📦 Dependências e Versões
 
-- **Haskell**: GHC 9.2.8
-- **Stack**: LTS 21.25
-- **Scotty**: 0.12+
+### Backend
+- **Haskell**: GHC 9.6.3
+- **Stack**: LTS 21.25 (resolver)
+- **Scotty**: 0.20.1
 - **Aeson**: 2.0+
+- **wai-cors**: 0.2+
+- **http-types**: 0.12+
+
+### Frontend
+- **JavaScript**: ES6+
+- **HTML5** e **CSS3**
+- Sem dependências externas
 
 ## 🔒 Segurança
 
 - ✅ CORS habilitado para todas as origens
-- ✅ Sem exposição de stack traces
-- ✅ Validação de inputs no backend
-- ✅ Sem chaves ou segredos no frontend
-
-## 📝 Links de Produção
-
-- **Frontend**: [ADICIONAR URL APÓS DEPLOY]
-- **Backend**: [ADICIONAR URL APÓS DEPLOY]
+- ✅ Sem exposição de stack traces em produção
+- ✅ Validação de inputs no backend e frontend
+- ✅ Sem chaves ou segredos no código cliente
+- ✅ HTTPS em produção (Render e Vercel)
 
 ## 🧪 Exemplos de Uso
 
@@ -262,7 +266,7 @@ Taxa: 8% ao ano
 Capitalização: Mensal (12x)
 Período: 2 anos
 ```
-**Resultado**: ~R$ 5.867,46
+**Resultado**: R$ 5.867,46
 
 ### Caso 2: Poupança de Longo Prazo
 ```
@@ -271,67 +275,51 @@ Taxa: 6% ao ano
 Capitalização: Mensal (12x)
 Período: 10 anos
 ```
-**Resultado**: ~R$ 18.194,07
+**Resultado**: R$ 18.194,07
+
+### Caso 3: Investimento Agressivo
+```
+Principal: R$ 1.000,00
+Taxa: 12% ao ano
+Capitalização: Mensal (12x)
+Período: 5 anos
+```
+**Resultado**: R$ 1.816,70
 
 ## 🐛 Troubleshooting
 
-### Backend não inicia
-```bash
-# Limpar e rebuildar
-stack clean
-stack build
-```
+### Backend demora no primeiro acesso
+- **Causa**: Render hiberna apps gratuitos após inatividade
+- **Solução**: Aguarde 30-60 segundos. É esperado no plano Free.
 
 ### Erro de CORS
-Verifique se o backend permite a origem do frontend em produção.
+- **Causa**: Backend não configurado corretamente
+- **Solução**: Já configurado no código. Se persistir, verifique os logs no Render.
 
 ### Frontend não conecta
-1. Verifique se `API_URL` está correto em `app.js`
-2. Teste o backend diretamente com curl
-3. Verifique console do navegador (F12)
+1. Verifique se `API_URL` em `app.js` está correto
+2. Teste o backend diretamente: https://compound-api-5i9n.onrender.com/
+3. Abra console do navegador (F12) para ver erros detalhados
+
+### Build do backend falha
+- Certifique-se que não existem múltiplos arquivos `.cabal`
+- Use "Clear build cache & deploy" no Render
+- Verifique os logs de build para erros específicos
 
 ## 📄 Licença
 
 MIT License - veja arquivo `LICENSE`
 
-## 👤 Autor
+## 🎯 Status do Projeto
 
-**Nome Completo**: VICTOR AUGUSTO DIAS MENDES DO VALLE
-
-**Turma**: 42B7
-
-**Disciplina**: Linguagem de Programação
-
-**Atividade**: Recuperação - Cálculo de Juros Compostos
-
-**Data de Entrega**: 16/11/2025
+✅ **Backend**: Live em produção (Render)  
+✅ **Frontend**: Live em produção (Vercel)  
+✅ **Testes**: Passando  
+✅ **Documentação**: Completa  
+✅ **Tag**: v1.0-RECUP-LP-2025 criada
 
 ---
 
-## Links de Produção
+**Aplicação desenvolvida e testada com sucesso. Frontend e backend deployados e funcionais.**
 
-### Frontend (Aplicação)
-```
-[https://seu-app.vercel.app](https://compound-calculator-five-sigma.vercel.app/)
-```
-
-### Backend (API)
-```
-[https://compound-api-5i9n.onrender.com](https://compound-api-5i9n.onrender.com)
-```
-
-### Repositório GitHub
-```
-https://github.com/victoraugusto3215/-lp-recuperacao-js-hs-compound
-```
-
----
-
-## Tag/Release
-- **Tag**: v1.0-RECUP-LP-2025
-
----
-
-## Observações
-
-Aplicação desenvolvida e testada com sucesso. Frontend e backend deployados e funcionais.
+**Data de conclusão**: 16/11/2025
