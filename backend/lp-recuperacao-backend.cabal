@@ -1,0 +1,44 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.38.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           lp-recuperacao-backend
+version:        0.1.0.0
+build-type:     Simple
+
+library
+  other-modules:
+      Paths_lp_recuperacao_backend
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , http-types
+    , scotty
+    , text
+    , transformers
+    , wai
+    , wai-extra
+    , warp
+  default-language: Haskell2010
+
+executable lp-recuperacao-backend-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_lp_recuperacao_backend
+  hs-source-dirs:
+      src
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , http-types
+    , scotty
+    , text
+    , transformers
+    , wai
+    , wai-extra
+    , warp
+  default-language: Haskell2010
