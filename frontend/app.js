@@ -1,5 +1,5 @@
 // Configuração da API - ALTERE ESTA URL para a URL do seu backend em produção
-const API_URL = 'http://localhost:8080/api/compound';
+const API_URL = 'https://compound-api-5i9n.onrender.com/api/compound';
 // Exemplo para produção: const API_URL = 'https://seu-backend.onrender.com/api/compound';
 
 // Elementos do DOM
