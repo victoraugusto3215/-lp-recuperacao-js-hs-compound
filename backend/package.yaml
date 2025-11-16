@@ -12,6 +12,7 @@ dependencies:
 - wai-cors >= 0.2
 - wai >= 3.2
 - text >= 1.2
+- http-types >= 0.12
 
 executables:
   compound-interest-api-exe:
